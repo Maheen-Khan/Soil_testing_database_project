@@ -1,6 +1,6 @@
 import mongoose from "./mongoose.js";
 
-const labTestSchema = new mongoose.Schema({
+const requestSchema = new mongoose.Schema({
 
     userID : mongoose.SchemaType.ObjectID(),
     tests: [{
@@ -23,4 +23,4 @@ const labTestSchema = new mongoose.Schema({
 
 });
 
-module.exports(labTestSchema.model("labTest"),mongoose.Schema);
+module.exports(requestSchema.model("Requests"),mongoose.Schema);
