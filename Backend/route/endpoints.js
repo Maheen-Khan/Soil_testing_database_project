@@ -1,6 +1,6 @@
-const express = require("express")
-const User = require("./User.js")
-const Request =  require("./Request.js")
+const express = require("../express")
+const User = require("../model/User.js")
+const Request =  require("../model/Request.js")
 const router  = express.Router()
 
 //Registering an user account
