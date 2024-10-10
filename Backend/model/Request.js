@@ -1,12 +1,12 @@
-import mongoose from "./mongoose.js";
+const mongoose = require("mongoose")
 
 const requestSchema = new mongoose.Schema({
 
-    userID : mongoose.SchemaType.ObjectID(),
+    userID : {type:mongoose.Schema.Types.ObjectId},
     tests: [{
-        soilTestID: {type:mongoose.SchemaType.ObjectID(), required:True},
-        quantity: {type:Number, required:True},
-        price: {type:Number,required:True}, //Should come from SoilTests.tests
+        soilTestID: {type:mongoose.Schema.Types.ObjectId},
+        quantity: {type:Number, required:true},
+        price: {type:Number,required:true}, //Should come from SoilTests.tests
     }],
     shippingSlip: String,
     status: {type:String, default:"Pending"},
@@ -18,9 +18,10 @@ const requestSchema = new mongoose.Schema({
         currency:String
     },
 
-    createdAt: {Type:Date,default:Date.now()},
+    createdAt: {type:Date,default:Date.now()},
     updatedAt: Date
 
 });
 
-module.exports(requestSchema.model("Requests"),mongoose.Schema);
+const request = mongoose.model("Requests",requestSchema);
+module.exports = request;
