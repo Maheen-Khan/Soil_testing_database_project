@@ -7,16 +7,13 @@ const bcrypt = require("bcrypt");
 
 router.post("/register", async(req,res) =>{
     try{
-    console.log(1);
     const myUser = new User({
         name: req.body.name, 
         email:req.body.email,
         password:req.body.password,
         homeAddress:req.body.homeAddress,
     });
-    console.log(2);
     await myUser.save();
-    console.log(3);
     res.status(201).json(myUser);
 }catch (error) {
     console.log(error);
@@ -25,15 +22,41 @@ router.post("/register", async(req,res) =>{
 });
 
 //Login into user account
-router.post("/login",async(req,res) =>{
-    const myUser = await User.findOne({_id:req.params._id}).catch(res.status(400).json({error: "Incorrect Username"}));
-
-    if(req.params.password == myUser.password){
-        res.status(200).json({name:myUser.name,id:myUser._id,token});
-    }else{
-        res.status(400).json({
-            error: "Incorrect Password"
+router.post("/login", async (req, res) => {
+    try {
+        const myUsers = await User.find({ //Checks all with same name or email
+            $or: [
+                { name: req.body.name },
+                { email: req.body.name }
+            ]
         });
+
+        if(myUsers.length === 0 ){
+            return res.status(404).json({error:"User not found"});
+        }
+
+        for(const user of myUsers){
+            if(bcrypt.compare(req.body.password === user.password)){
+                return res.status(200).json({ id: user._id, name: user.name });
+            }
+        }
+    
+        
+            return res.status(404).json({ error: "Incorrect Password" });
+    } catch (err) {
+        return res.status(500).json({ error: err });
+    }
+});
+
+
+
+//Veiw All users
+router.get("/users",async(req,res) =>{
+    try{
+        const allUsers = await User.find();
+        res.status(200).json(allUsers);
+    }catch{
+        res.status(400).json({error:"Account does not exist"});
     }
 });
 
