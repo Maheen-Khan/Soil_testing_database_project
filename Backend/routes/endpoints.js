@@ -1,34 +1,37 @@
-const express = require("../express")
+const express = require("express")
 const User = require("../model/User.js")
 const Request =  require("../model/Request.js")
 const router  = express.Router()
-
+const bcrypt = require("bcrypt");
 //Registering an user account
 
 router.post("/register", async(req,res) =>{
     try{
+    console.log(1);
     const myUser = new User({
         name: req.body.name, 
         email:req.body.email,
         password:req.body.password,
-        role:"User",
-        homeaddress:req.body.homeaddress,
+        homeAddress:req.body.homeAddress,
     });
+    console.log(2);
     await myUser.save();
-    res.status(201).send(myUser);
+    console.log(3);
+    res.status(201).json(myUser);
 }catch (error) {
-    res.status(400).send({error:"Failed to create user"});
+    console.log(error);
+    res.status(401).json({error:"Failed to create user"});
 }
 });
 
 //Login into user account
-router.get("/login",async(req,res) =>{
-    const myUser = await User.findOne({_id:req.params.id}).catch(res.status(400).send({error: "Incorrect Username"}));
+router.post("/login",async(req,res) =>{
+    const myUser = await User.findOne({_id:req.params._id}).catch(res.status(400).json({error: "Incorrect Username"}));
 
     if(req.params.password == myUser.password){
-        res.status(200).send(myUser);
+        res.status(200).json({name:myUser.name,id:myUser._id,token});
     }else{
-        res.status(400).send({
+        res.status(400).json({
             error: "Incorrect Password"
         });
     }
@@ -37,11 +40,12 @@ router.get("/login",async(req,res) =>{
 
 //Forgot Password
 router.patch("/login",async(req,res) =>{
-    const myUser = User.findOne({_id:req.body.id}).catch(res.send({error: "User Does not exist"}));
+
+    const myUser = User.findOne({_id:req.body.id}).catch(res.json({error: "User Does not exist"}));
 
     myUser.password = req.body.password;
     await myUser.save();
-    res.status(200).send(myUser);
+    res.status(200).json(myUser);
 });
 
 //Create sample
@@ -55,9 +59,9 @@ router.post("/create", async(req,res) =>{
         payment:payment,
     });
     await myRequest.save();
-    res.status(200).send(myRequest);
+    res.status(200).json(myRequest);
 }catch (error) {
-    res.status(400).send({error:"Failed to create user"});
+    res.status(400).json({error:"Failed to create user"});
 }
 });
 
@@ -68,9 +72,9 @@ router.delete("/mySample/:id",async(req,res)=>{
 
         const deletedSample = await Request.findByIdAndDelete(req.params.id);
         if(deletedSample == null){
-            res.status(400).send({"error":"could not find sample"});
+            res.status(400).json({"error":"could not find sample"});
         }
-        res.status(200).send({message:"Sample Deleted"});
+        res.status(200).json({message:"Sample Deleted"});
     
 })
 
@@ -78,9 +82,9 @@ router.delete("/mySample/:id",async(req,res)=>{
 router.get("/mySample",async(req,res) =>{
     try{
         const allRequest = await Request.find();
-        res.status(200).send(allRequest);
+        res.status(200).json(allRequest);
     }catch{
-        res.status(400).send({error:"Account does not exist"});
+        res.status(400).json({error:"Account does not exist"});
     }
 });
 
@@ -89,9 +93,9 @@ router.get("/mySample",async(req,res) =>{
 router.get("/mySample/:id",async(req,res) =>{
     try{
         const request = await Request.findOne({_id:req.params.id});
-        res.status(200).send(request);
+        res.status(200).json(request);
     }catch{
-        res.status(400).send({error:"Account does not exist"});
+        res.status(400).json({error:"Account does not exist"});
     }
 
 });
@@ -101,11 +105,11 @@ router.patch("/sample/:id",async(req,res) =>{
     try{
         const deletedRequest = await Request.findByIdAndUpdate(req.params.id);
         if(!deletedRequest){
-            return res.status(400).send({ error: "Request not found" });
+            return res.status(400).json({ error: "Request not found" });
         }
-        res.status(200).send(deletedRequest);
+        res.status(200).json(deletedRequest);
     }catch{
-        res.status(400).send("Account does not exist");
+        res.status(400).json("Account does not exist");
     }
 });
 

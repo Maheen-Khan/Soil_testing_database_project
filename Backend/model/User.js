@@ -1,11 +1,11 @@
-import mongoose from "./mongoose.js";
-
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
 
     name: {type:String, required: true},
     email: {type:String, required: true},
     password: {type:String, required: true},
-    role: {type:String, required: true}, //Master admin, admin, user
+    role: {type:String, default: 'user'}, //Master admin, admin, user
     
     homeAddress: {type:String, required: true},
     createdAt: {type:Date, default: Date.now()},
@@ -15,6 +15,18 @@ const userSchema = new mongoose.Schema({
 }
 );
 
-const User = userSchema.model("User",mongoose.Schema);
+userSchema.pre('save', async function(next){
+    try{
+        const salt = await bcrypt.genSalt();
+        this.password = await bcrypt.hash(this.password,salt);
+        next();
+    }catch(err){
+        console.error(err);
+    }
+
+
+})
+
+const User = mongoose.model("User",userSchema);
 
 module.exports = User;
