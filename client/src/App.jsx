@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
+
+
+//Auth folder
+import Login from './auth/Login';
+import Register from './auth/Register';
+
+//Accounts folder
+
+//Components folder
+import NavBar from './components/NavBar';
+
+//Admin folder
+import RequestList from './admin/RequestList';
+import UpdateRequest from './admin/UpdateRequest';
+
+//User folder
+
+import Home from './Home';
+import MySamples from './user/MySamples';
+import Account from './user/Account';
+import RequestSample from './user/RequestSample.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Router>
 
+      
+        <NavBar />
+      
+      <Routes>
+
+
+          <Route path='/' element={<Home />} />
+
+
+
+          <Route path='/request-sample' element={<RequestSample />} />
+          <Route path='/my-samples' element={<MySamples />} />
+          <Route path='/Account' element={<Account />} />
+
+
+          <Route path='/update-request' element={<UpdateRequest />} />
+          <Route path="/request-list"   element={<RequestList />} />
+
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          
+      </Routes>
+
+    </Router>
+   
+  );
+}
 export default App
