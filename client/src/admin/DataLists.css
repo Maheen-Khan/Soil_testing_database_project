@@ -1,7 +1,24 @@
+/* RequestList.css */
+
+/* Overall container */
 
 
 
-.admin-div{
+
+
+.data-list-div{
+    display: flex;
+
+}
+.data-list-div > div{
+    display: flex;
+    align-items: center;
+    width: 25%;
+    justify-content: center;
+    background-color:#a8b798;
+    border: 1px solid black;
+}
+.data-list-link{
     background-color: lightgrey;
     width: 75%;
     padding: 20px;
@@ -13,9 +30,12 @@
 
 }
 
-.admin-div:hover{
+.data-list-link:hover{
     background-color: rgb(107, 105, 105);
 }
+
+
+
 /* 
 
 .world{
@@ -120,4 +140,4 @@ button{
     font-size: 30px;
     width:100%;
 }
-*/
+*/ 

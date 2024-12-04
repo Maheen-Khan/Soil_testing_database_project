@@ -1,15 +1,14 @@
-const express = require("express");
-const mongoose = require("mongoose");
-require("dotenv").config();
-const cors = require("cors");
-const routes = require("./routes/endpoints.js")
+require("dotenv").config()
+const express = require("express")
+const app  = express()
+const mongoose = require("mongoose")
+const cors = require("cors")
 const userRoutes = require("./routes/UserRoutes")
 const TestRoutes = require("./routes/TestRoutes")
 const RequestRoutes = require("./routes/RequestRoutes")
 
-const Test = require("./model/Test.js")
 
-const app  = express()
+
 app.use(express.json()) // this allows JSON parsing from requests
 app.use(cors())
 
@@ -26,6 +25,42 @@ app.listen(3001, () => {
     console.log("Server is running on http://localhost:3001")
 })
 
+
+const Test = require("./model/Test"); // Replace with your model
+
+
+
+
+
+// //Dev function for accidentally making duplicates
+// async function deleteDuplicates() {
+//     try {
+//         // Fetch all documents from the collection
+//         const allTests = await Test.find();
+
+//         // Create a map to track unique entries
+//         const seen = new Map();
+
+//         for (const test of allTests) {
+//             const identifier = test.testName; // Replace with the field you want to check for duplicates
+            
+//             if (seen.has(identifier)) {
+//                 // If this identifier is already seen, delete the duplicate
+//                 await Test.findByIdAndDelete(test._id);
+//             } else {
+//                 // Mark this identifier as seen
+//                 seen.set(identifier, true);
+//             }
+//         }
+
+//         console.log("Duplicates removed successfully!");
+//     } catch (error) {
+//         console.error("Error removing duplicates:", error);
+//     }
+// }
+
+// // Call the function
+// deleteDuplicates();
 
 
 

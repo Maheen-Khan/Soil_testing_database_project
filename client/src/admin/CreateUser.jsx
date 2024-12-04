@@ -1,22 +1,16 @@
 import { useState, useContext } from 'react'
 import { Link, Navigate , useNavigate} from 'react-router-dom'
-import "./Login.css"
+
 import LoginApi from '../services/LoginApi.jsx';
-import {useAuthContext} from "../AuthContext"
-import {getData, setData} from "../SessionHandler"
-const Login = (() => {
+
+
+const CreateUser = (() => {
 
     const [name,setName] = useState('');
     const [password,setPassword] = useState('');
-   const {user,dispatch} = useAuthContext()
-    const nav = useNavigate();
     
-    if(user?.role === 'admin'){
-        nav("/request-dashboard")
-    }
-    if(user === 'user'){
-        nav("/")
-    }
+    const nav = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         try{
@@ -24,23 +18,10 @@ const Login = (() => {
             name,
             password
         }
-        const res = await LoginApi.login(userData)
-        if(setData("session","user",JSON.stringify({
-            token : res.id,
-            name: res.name,
-            //email: res.data.email,
-            role: res.role
-        }))){
-            dispatch({type:"LOGIN",data:res})
-        }
+        const i = await LoginApi.login(userData)
 
-        // sessionStorage.setItem("name",JSON.stringify(res.data.name)) 
-        // sessionStorage.setItem("user",JSON.stringify(res.data.id)) 
 
-        setName("")
-        setPassword("")
-        console.log("User logged in", getData("user"),res)
-                
+        nav("/");
 
 
     }catch(err){
@@ -53,7 +34,7 @@ const Login = (() => {
  
         <div className='login-shell'>
             <div className='login-form'>
-                <h1 style={{contentAlign:"center"}} className="login-title">Login</h1>
+                <h1 style={{contentAlign:"center"}}>Login</h1>
                 <form  onSubmit={handleSubmit}>
                     <label className='login-label'>
                         <strong>Username or Email</strong>
@@ -73,7 +54,7 @@ const Login = (() => {
                         />
                     </label>
 
-                    <Link to= "../register" className='login-link' >Don't have an account?</Link>
+                    <Link to= "../register" >Dont have an account?</Link>
                     <button type="submit" className="login-submit">Submit</button>
                 </form>
             </div>
@@ -81,4 +62,4 @@ const Login = (() => {
 
     );
 })
-export default Login;
+export default CreateUser;

@@ -1,0 +1,50 @@
+.request-update-shell{
+    padding: 60px;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+.request-update-button{
+    display: flex;
+}
+
+.request-update-button > button{
+    border-radius: 0;
+    border: 1px black solid;
+}
+
+.request-update-label{
+    display: flex;
+    justify-content: space-between;
+}
+
+.trash{
+    background-color: darkgray;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: right;
+ }
+
+.update-form{
+    width: 500px;
+    margin: 60px auto;
+    gap: 30px;
+    padding: 30px;
+    background-color: #a8b798;
+}
+
+.user-update-label{
+    display: block;
+    margin: 0;
+    margin-bottom: 15px;
+
+    
+}
+
+.user-update-input{
+    width: 100%;
+    padding: 5px;
+}

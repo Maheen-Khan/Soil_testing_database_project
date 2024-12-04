@@ -1,21 +1,8 @@
 const User = require("../model/User")
 const bcrypt  = require("bcrypt")
 
-const userRegister = async(req,res) =>{
-    try{
-    const myUser = new User({
-        name: req.body.name, 
-        email:req.body.email,
-        password:req.body.password,
-        homeAddress:req.body.homeAddress,
-    });
-        await myUser.save();
-        res.status(201).json(myUser);
-    }catch (error) {
-        console.log(error);
-        res.status(401).json({error:"Failed to create user"});
-}
-}
+
+
 
 const userLogin = async (req, res) => {
     try {
@@ -44,31 +31,126 @@ const userLogin = async (req, res) => {
     }
 }
 
-const getUsers = async(req,res) =>{
+
+
+
+
+
+const getUser = async(req,res) =>{
+    const myUser = await User.findById(req.params.id).select('-password').lean().exec()
+    if(myUser)
+        res.status(200).json(myUser)
+    else
+        res.status(400).json({message: "Users not found"})
+}
+
+const getAllUsers = async(req,res) =>{
     try{
-        const allUsers = await User.find();
+        const allUsers = await User.find().select('-password').lean()
         res.status(200).json(allUsers);
     }catch{
-        res.status(400).json({error:"Account does not exist"});
+        res.status(400).json({error:"Users not found"});
     }
 }
 
 
+const createUser = async(req,res) =>{
+    try{
+        //Check for parameters
+        const {name,email,password,homeAddress,role} = req.body
+
+        if(!name || !email || !password || !homeAddress){
+            res.status(400).status({message : "All feilds required to create user"})
+        }
+
+        const duplicate = await User.findOne({email}).lean().exec()
+        if(duplicate){
+            return res.status(409).json({message: "Duplicates not allowed"})
+        }
+
+
+        
+        const user = await User.create({
+            name: req.body.name, 
+            email:req.body.email,
+            role: req.body.role || "user",
+            password:req.body.password,
+            homeAddress:req.body.homeAddress,
+        })
+        if(user)
+            res.status(201).json({message: "User created"});
+    }catch (error) {
+        console.log(error);
+        res.status(401).json({error:"Failed to create user"});
+}
+}
+
+
 const updateUser = async(req,res) =>{
+    try{
+        const {id,name,email,homeAddress,password} = req.body
+        
+        if(!id||!name||!email||!homeAddress){
+            return res.status(400).json({message: "All feilds required to update user"})
+        }
 
-    const myUser = User.findOne({_id:req.body.id}).catch(res.json({error: "User Does not exist"}));
+        const user = await User.findById(id).exec()
+        console.log(user)
+        if(!user){
+            return res.status(400).json({message : "User not found"})
+        }
+        console.log(user)
 
-    myUser.password = req.body.password;
-    await myUser.save();
-    res.status(200).json(myUser);
+        const duplicate = await User.findOne({email}).lean().exec()
+        if(duplicate && duplicate?._id.toString !== id){
+            return res.status(409).json({message:"Duplicate email"})
+        }
+
+        user.name = name
+        user.email = email
+        user.homeAddress = homeAddress
+        
+        if(password){
+            user.password = await bcrypt.hash(password,10)
+        }
+        const updatedUser = await user.save()
+        res.status(200).json({message: "User updated"});
+    }catch{
+        res.status(400).json({error:"Failed to update user"})
+    }
+}
+
+const deleteUser = async(req,res) =>{
+    const {id} = req.body
+    if(!id){
+        return res.status(400).json({message :'User ID required to delete account'})
+    }
+
+    const requests = await Request.find({userID : id}).lean().exec()
+    if(requests){
+        return res.status(400).json({message : "Cannot delete user with requests"})
+    }
+    const user = await User.findById(id).exec()
+
+    if(!user){
+        return res.status(400).json({message : "Cannot find user"})
+    }
+
+    const deletedUser = await user.deleteOne()
+
+    res.status(200).json({message : "User deleted"})
 }
 
 
 
+
+
 module.exports = {
-    userRegister,
     userLogin,
-    getUsers,
-    updateUser
+    createUser,
+    getUser,
+    getAllUsers,
+    updateUser,
+    deleteUser
 
 }

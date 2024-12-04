@@ -7,6 +7,8 @@ const testSchema = new mongoose.Schema({
     cost: {type:Number, default: 0},
     createdAt: {type: Date, default: Date.now()},
     updatedAt: {type: Date}
+
 });
 const Test = mongoose.model("Test",testSchema);
 module.exports = Test;
+

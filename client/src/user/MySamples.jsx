@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './MySamples.css';
 import axios from 'axios';
+import { useAuthContext } from '../AuthContext';
 
 // const samplesData = [
 //   { id: 1, date: '08/09/2024', status: 'In progress', details: 'Details of sample 1...' },
@@ -13,22 +14,22 @@ const MySamples = () => {
   const [samplesData,setSamplesData] = useState([]);
   const [selectedSample, setSelectedSample] = useState(null);
   const [selectedResult, setSelectedResult] = useState(null);
+  const {user} = useAuthContext()
+
 
   useEffect(()=>{
 
   const getSamples = async () =>  {
     try{
-      console.log(1);
+
       const url = "http://localhost:3001/request/get/all/";
       
-      const user2 = sessionStorage.getItem("user").slice(1,-1);
-      console.log(2);
+      const user2 = user.token;
       
       const res = await axios.post(url + user2);
-      console.log(3);
 
       const samplesData2 = res.data.map(i => ({
-        id: i._id,
+        id: i.id,
         date : new Date(i.createdAt).toLocaleDateString(),
         status : i.status,
         tests : i.tests
@@ -46,7 +47,7 @@ const MySamples = () => {
 
 
     getSamples()
-  },[]);
+  },[user]);
   
   return (
     <div className="request-sample-page">

@@ -1,6 +1,6 @@
 import api from "./api";
 
-const getAllUsers = (async () => {
+const getAllRequests = (async () => {
     const res = await api.post("/request/get/all");
     return(res);
 })
@@ -17,13 +17,39 @@ const getRequest = (async (userId) =>{
     console.log("Sucess! data updated")
     return(requestData)
 })
-const updateUser = (async (data,userId) =>{
+const updateRequest = (async (data,userId) =>{
     const res = await api.patch(`/request/update/${userId}`, data);
+})
+
+const deleteUser = (async (requestId) =>{
+    const res = await api.delete(`/request/${requestId}`)
+    console.log(res.data)
+})
+
+const getAllUsers = (async () =>{
+    const res = await api.get("/users")
+    return res
+
+})
+
+const getUser = (async (userId) => {
+    const res = await api.get(`/user/${userId}`)
+    return res
+})
+
+const updateUser = (async (user) =>{
+    const res = await api.patch("/user",user)
+    return res
+
 })
 
 export default {
     getAllUsers,
     getRequest,
+    updateRequest,
+    deleteUser,
+    getAllRequests,
+    getUser,
     updateUser
 
 }

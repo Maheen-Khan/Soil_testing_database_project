@@ -1,0 +1,102 @@
+/* .create-request-shell{
+    display: flex;
+    justify-content: center;
+    
+}
+.create-request-shell > div{
+    align-items: center;
+
+    background-color: beige;
+    margin: 60px;
+    padding: 60px;
+} */
+
+.create-request-shell {
+    background-color: #a8b798;
+    max-width: 50%;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+/* Styling for the checkboxes */
+label {
+    font-size: 16px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Checkbox input styling */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #007bff;
+}
+
+/* When the checkbox is checked, the input field will appear */
+input[type="checkbox"]:checked + input {
+    display: block;
+}
+
+/* Styling for the test input field */
+input[type="text"][placeholder^="Input for"] {
+    padding: 10px;
+    margin-top: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: calc(100% - 20px);
+    display: block;
+}
+
+/* Button styling */
+button {
+    padding: 12px;
+    background-color: #5f7a57;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #303337;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .create-request-shell {
+        padding: 15px;
+    }
+
+    form {
+        gap: 10px;
+    }
+
+    input[type="text"], button {
+        font-size: 14px;
+    }
+}

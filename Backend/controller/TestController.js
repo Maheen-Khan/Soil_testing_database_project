@@ -25,6 +25,16 @@ const getTest = async(req,res) => {
     }
 }
 
+
+const getAllTest = async(req,res) => {
+    try{
+        const allTests = await Test.find().lean()
+        res.status(200).json(allTests);
+    }catch{
+        res.status(400).json({error:"Tests not found"});
+    }
+}
+
 const updateTest = async(req,res)=>{
     try{
         const replacedTest = await Test.findByIdAndUpdate(req.params.id);
@@ -50,6 +60,7 @@ const deleteTest = async(req,res)=>{
 module.exports = {
     createTest,
     getTest,
+    getAllTest,
     updateTest,
     deleteTest
 }

@@ -1,9 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../AuthContext';
 import './NavBar.css';
+import { removeData } from '../SessionHandler';
+import { useEffect } from 'react';
+
+
 
 const NavBar = () => {
-  console.log(sessionStorage.getItem("loggedIn"));
+  const {user,dispatch} = useAuthContext()
+  const nav = useNavigate()
+
+  const logOut = () => {
+    // remove user from storage
+    removeData("user")
+  
+    // dispatch logout action
+    dispatch({ type: "LOGOUT" })
+
+    nav("/login")
+    
+  }
+
 
 
   return (
@@ -16,7 +34,18 @@ const NavBar = () => {
       </ul>
       <div className="navbar-right">
         <div>
-          {sessionStorage.getItem("name") ? ("Hello " + sessionStorage.getItem("name").slice(1,-1)) : ("")} 
+          {user ? 
+            <button onClick={() => logOut()} className="nav-link">
+                Logout
+            </button>
+            :
+            <div></div>
+                  
+                }
+
+        </div>
+        <div>
+          {user && user.name ? ("Hello " + user.name) : ("")} 
           
         </div>
         <Link to="/account" className="user-link">
@@ -26,5 +55,6 @@ const NavBar = () => {
     </div>
   );
 };
+
 
 export default NavBar;
