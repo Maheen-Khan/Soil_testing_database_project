@@ -7,6 +7,7 @@ function UserSample() {
     const { state } = useLocation();
     const [tests, setTests] = useState([]);
     const [updateData, setUpdateData] = useState({});
+    const [status,setStatus] = useState("Pending")
     const nav = useNavigate();
 
     useEffect(() => {
@@ -42,7 +43,7 @@ function UserSample() {
                 testId: test.id,
                 values: updateData[test.id]?.values || test.values,
             }));
-            const data = { tests: updatedTests };
+            const data = { tests: updatedTests, status: status };
             await UserApi.updateRequest(data, state._id);
             console.log("Update successful");
             alert("Sucess: Request Updated")
@@ -105,7 +106,7 @@ function UserSample() {
 
                 <div className="request-update-button">
                     <button onClick={updateRequests}>Update</button>
-                    <button>Confirm</button>
+                    <button onClick={() => setStatus("Confirmed")}>Confirm</button>
                 </div>
             </div>
         </div>

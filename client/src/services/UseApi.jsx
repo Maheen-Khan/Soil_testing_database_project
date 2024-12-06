@@ -2,8 +2,11 @@ import api from "./api";
 
 const getAllRequests = (async () => {
     const res = await api.post("/request/get/all");
-    console.log("Request retrived")
     return(res);
+})
+const getAllUserRequests = (async (id) =>{
+    const res = await api.post("/request/get/all/" + id)
+    return(res)
 })
 
 const getRequest = (async (userId) =>{
@@ -65,10 +68,28 @@ const createRequest = async (request) => {
     return(res)
 }
 
+const login = async (userData) => {
+    try{
+        const res = await api.post('/login',userData) 
+
+        return(res.data)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+const register = async (userData) =>{
+    console.log(userData)
+    const res = await api.post("/register",userData)
+    console.log("Account created") 
+}
+
+
 
 export default {
     getAllUsers,
     getRequest,
+    getAllUserRequests,
     updateRequest,
     deleteUser,
     getAllRequests,
@@ -77,6 +98,8 @@ export default {
     getAllTests,
     getTest,
     updateTest,
-    createRequest
+    createRequest,
+    login,
+    register
 
 }

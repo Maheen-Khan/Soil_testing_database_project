@@ -15,18 +15,15 @@ const MySamples = () => {
   const [selectedSample, setSelectedSample] = useState(null);
   const [selectedResult, setSelectedResult] = useState(null);
   const {user} = useAuthContext()
-
+  const UseApi = "../services/UseApi";
 
   useEffect(()=>{
 
   const getSamples = async () =>  {
-    try{
-
-      const url = "http://localhost:3001/request/get/all/";
+    try{      
+      const userId = user.token;
       
-      const user2 = user.token;
-      
-      const res = await axios.post(url + user2);
+      const res = await UseApi.getAllUserRequests(userId)
 
       const samplesData2 = res.data.map(i => ({
         id: i.id,

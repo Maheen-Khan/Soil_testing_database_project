@@ -25,9 +25,9 @@ import CreateTest from './admin/CreateTest';
 //User folder
 
 import Home from './Home';
-import MySamples from './user/MySamples';
-import Account from './user/Account';
-import RequestSample from './user/RequestSample.jsx';
+import MySamples from './pages/MySamples';
+import Account from './pages/Account';
+import RequestSample from './pages/RequestSample.jsx';
 
 function App() {
   return (

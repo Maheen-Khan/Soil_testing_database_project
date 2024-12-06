@@ -1,15 +1,13 @@
 import React from 'react';
 import  {useContext}  from 'react';
-import Login from '../auth/Login';
 import { Navigate } from 'react-router-dom';
-
-
+import { useAuthContext } from '../AuthContext';
 
 
 const Account = () => {
+  const {user} = useAuthContext()
 
-  const {user,setUser} = useContext(userContext);
-  if(user.loggedIn){
+  if(user){
     return (
       <div>
         <h2>My Account</h2>

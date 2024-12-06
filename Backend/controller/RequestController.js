@@ -107,9 +107,9 @@ const updateRequest =  async (req, res) => {
         await Request.findByIdAndUpdate(req.params.id,{tests:req.body.tests});
 
 
-        // if (status) {
-        //     request.status = status;
-        // }
+        if (status) {
+            request.status = status;
+        }
 
            res.status(200).json({sucess:"Request updated"})
            Request.findById(req.params.id).then( (i) => console.log(i))
