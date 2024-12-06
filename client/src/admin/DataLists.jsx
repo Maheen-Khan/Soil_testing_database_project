@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import "./DataLists.css";
-import UserApi from "../services/UserApi";
+import UseApi from "../services/UseApi";
 
-export function UserList() {
+export const UserList = (() => {
     const [users, setUsers] = useState([]);  
 
     useEffect(() => {
         const fetchUsers = async () => {
             try{
-                const response = await UserApi.getAllUsers();
+                const response = await UseApi.getAllUsers();
                 setUsers(response.data);  
             }catch(err){
                 console.error(err)
@@ -22,14 +22,14 @@ export function UserList() {
     return (
        makeList(users,"name","role","/update-user")
      );
-}
+})
 
-export function RequestList() {
+export const RequestList = (() => {
     const [samples, setSamples] = useState([]);  
     useEffect(() => {
         const fetchSamples = async () => {
             try{
-                const response = await UserApi.getAllRequests();
+                const response = await UseApi.getAllRequests();
                 console.log(response.data)
                 setSamples(response.data);  
             }catch(err){
@@ -43,15 +43,15 @@ export function RequestList() {
     return(
         makeList(samples,"_id","status", "/update-request")
     )
-}
+})
 
-export function TestList(){
+export const TestList = (() => {
     const [tests,setTests] = useState([])
 
     useEffect(() =>{
         const fetchTests = async () =>{
             try{
-                const response = await UserApi.getAllTests()
+                const response = await UseApi.getAllTests()
                 setTests(response.data)
 
             }catch(err){
@@ -61,7 +61,7 @@ export function TestList(){
         fetchTests()
     },[])
     return(makeList(tests,"testName","_id","/update-test"))
-}
+})
     // users (list)  //Title (name/id) //Condition(role/status) // Link
 
 const makeList = ((arr,title,condition,link) =>{

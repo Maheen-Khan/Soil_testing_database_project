@@ -4,7 +4,7 @@ import "./Register.css"
 import {Link, useNavigate} from 'react-router-dom';
 import LoginApi from "../services/LoginApi";
 import { useAuthContext } from "../AuthContext";
-function Register(){
+const Register = (() =>{
 
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
@@ -100,5 +100,5 @@ function Register(){
 
         </div>
     )
-}
+})
 export default Register;

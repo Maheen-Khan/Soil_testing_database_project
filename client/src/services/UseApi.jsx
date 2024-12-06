@@ -1,5 +1,7 @@
 import api from "./api";
 
+
+//Requests
 const getAllRequests = (async () => {
     const res = await api.post("/request/get/all");
     return(res);
@@ -25,6 +27,14 @@ const updateRequest = (async (data,userId) =>{
     const res = await api.patch(`/request/update/${userId}`, data);
 })
 
+
+const createRequest = async (request) => {
+    const res = api.post("/request/create",request)
+    return(res)
+}
+
+//Users
+
 const deleteUser = (async (requestId) =>{
     const res = await api.delete(`/request/${requestId}`)
     console.log(res.data)
@@ -47,6 +57,8 @@ const updateUser = (async (user) =>{
 
 })
 
+
+//Tests
 const getAllTests = (async () =>{
     const res = await api.get("/test/get-all")
     console.log("Test retrived")
@@ -63,10 +75,7 @@ const updateTest = (async (testId,test) =>{
     console.log("Test updated")
 })
 
-const createRequest = async (request) => {
-    const res = api.post("/request/create",request)
-    return(res)
-}
+//Login/Registration
 
 const login = async (userData) => {
     try{

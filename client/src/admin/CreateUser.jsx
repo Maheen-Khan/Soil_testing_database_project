@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { Link, Navigate , useNavigate} from 'react-router-dom'
 
-import LoginApi from '../services/LoginApi.jsx';
+import UseApi from '../services/UseApi.jsx';
 
 
 const CreateUser = (() => {
@@ -18,7 +18,7 @@ const CreateUser = (() => {
             name,
             password
         }
-        const i = await LoginApi.login(userData)
+        const i = await UseApi.login(userData)
 
 
         nav("/");

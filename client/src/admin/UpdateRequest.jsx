@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import UserApi from "../services/UserApi";
+import UseApi from "../services/UseApi";
 import "./UpdateRequest.css";
 
-function UserSample() {
+const UserSample = (() => {
     const { state } = useLocation();
     const [tests, setTests] = useState([]);
     const [updateData, setUpdateData] = useState({});
@@ -13,7 +13,7 @@ function UserSample() {
     useEffect(() => {
         const getRequests = async () => {
             try {
-                const requestData = await UserApi.getRequest(state._id);
+                const requestData = await UseApi.getRequest(state._id);
                 console.log("Success data retrieved:", requestData);
                 setTests(requestData);
             } catch (err) {
@@ -44,7 +44,7 @@ function UserSample() {
                 values: updateData[test.id]?.values || test.values,
             }));
             const data = { tests: updatedTests, status: status };
-            await UserApi.updateRequest(data, state._id);
+            await UseApi.updateRequest(data, state._id);
             console.log("Update successful");
             alert("Sucess: Request Updated")
         } catch (err) {
@@ -57,7 +57,7 @@ function UserSample() {
         try {
             const decision = window.confirm("Delete Request?");
             if (decision) {
-                await UserApi.deleteUser(state._id);
+                await UseApi.deleteUser(state._id);
                 nav("/request-list");
             }
         } catch (err) {
@@ -111,6 +111,6 @@ function UserSample() {
             </div>
         </div>
     );
-}
+})
 
 export default UserSample;

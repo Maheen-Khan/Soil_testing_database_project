@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import UserApi from "../services/UserApi";
+import UseApi from "../services/UseApi";
 import "./CreateRequest.css";
 
 const CreateRequest = () => {
@@ -10,7 +10,7 @@ const CreateRequest = () => {
     useEffect(() => {
         const getTests = async () => {
             try {
-                const response = await UserApi.getAllTests();
+                const response = await UseApi.getAllTests();
                 setTests(response.data);
             } catch (err) {
                 console.error(err);
@@ -66,7 +66,7 @@ const CreateRequest = () => {
         console.log(requestData);
 
         try {
-            const res = await UserApi.createRequest(requestData);
+            const res = await UseApi.createRequest(requestData);
             console.log(res);
             alert("Sucess: Request Created!")
         } catch (err) {

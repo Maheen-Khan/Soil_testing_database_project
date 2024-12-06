@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import UserApi from "../services/UserApi";
+import UseApi from "../services/UseApi";
 import "./UpdateTest.css";
 
 const UpdateTest = () => {
@@ -11,7 +11,7 @@ const UpdateTest = () => {
     useEffect(() => {
         const getTests = async () => {
             try {
-                const response = await UserApi.getTest(state._id);
+                const response = await UseApi.getTest(state._id);
                 console.log("Success data retrieved:", response.data);
 
                 // Set the response data directly to the state
@@ -66,7 +66,7 @@ const UpdateTest = () => {
                 ...test,
                 ...updateData, // Apply updates from `updateData`
             };
-            await UserApi.updateTest(state._id, updatedTest);
+            await UseApi.updateTest(state._id, updatedTest);
             console.log("Update successful");
         } catch (err) {
             console.error("Error while updating tests:", err);

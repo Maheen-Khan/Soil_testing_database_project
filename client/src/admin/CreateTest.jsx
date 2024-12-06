@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UserApi from "../services/UserApi";
+import UseApi from "../services/UseApi";
 import "./CreateTest.css"
 const CreateTest = () => {
     const [testData, setTestData] = useState({
@@ -43,7 +43,7 @@ const CreateTest = () => {
     const createTest = async () => {
         try {
             // Send the test data to the backend for creation
-            await UserApi.createTest(testData); // Assume `createTest` method is defined in `UserApi`
+            await UseApi.createTest(testData); // Assume `createTest` method is defined in `UseApi`
             console.log("Test created successfully!");
             setTestData({
                 testName: "",

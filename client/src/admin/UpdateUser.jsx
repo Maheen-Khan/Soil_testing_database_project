@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import UserApi from "../services/UserApi";
+import UseApi from "../services/UseApi";
 import "./UpdateUser.css";
 
-function UpdateUser() {
+const UpdateUser = (() => {
     const { state } = useLocation();
     const [user, setUser] = useState({ name: "", email: "", homeAddress: "" });
     const nav = useNavigate();
@@ -12,7 +12,7 @@ function UpdateUser() {
         if (state?._id) {
             const retrieveUser = async () => {
                 try {
-                    const request = await UserApi.getUser(state._id);
+                    const request = await UseApi.getUser(state._id);
                     const requestData = request.data;
                     console.log("Success data retrieved");
                     setUser({
@@ -32,7 +32,7 @@ function UpdateUser() {
         e.preventDefault();
         try {
             console.log(user);
-            const res = await UserApi.updateUser(user);
+            const res = await UseApi.updateUser(user);
             console.log("User updated!!!", res);
             alert("User updated!")
             nav("/update-user");
@@ -89,6 +89,6 @@ function UpdateUser() {
             </form>
         </div>
     );
-}
+})
 
 export default UpdateUser;
