@@ -2,36 +2,23 @@ import React from 'react';
 import './RequestDashboard.css';
 import { Link } from 'react-router-dom';
 
-//Create user
-//veiw user
-//update user
-//delete user
-
-//create request
-//update request
-//delete request
-//veiw request
-
-//create Test
-//update Test
-//delete Test
-//veiw test
-
 const RequestDashboard = () => {
   return (
     <div className="admin-home">
-      <div className='admin-home-button-shell'>
-        <div className="admin-home-button-container">
+      <div className="admin-home-header">
+        <h1>Admin Dashboard</h1>
+        <p>Manage Users, Requests, and Tests</p>
+      </div>
 
-          {/*   For user links     */}
+      <div className="admin-home-button-shell">
+        <div className="admin-home-button-container">
           <Link to="/create-user" className="admin-home-button">
             Create new User
           </Link>
-          <Link to="/create-request" className="admin-home-button">
+          <Link to="/user-list" className="admin-home-button">
             Update/Delete a user
           </Link>
         </div>
-
 
         <div className="admin-home-button-container">
           <Link to="/create-request" className="admin-home-button">
@@ -40,11 +27,18 @@ const RequestDashboard = () => {
           <Link to="/request-list" className="admin-home-button">
             Update/Delete a request
           </Link>
+        </div>
 
+        <div className="admin-home-button-container">
+          <Link to="/create-test" className="admin-home-button">
+            Create new Test
+          </Link>
+          <Link to="/test-list" className="admin-home-button">
+            Update/Delete a Test
+          </Link>
         </div>
       </div>
 
-      
       <footer className="footer">
         Brooklyn College Environmental Science Analytical Center
       </footer>

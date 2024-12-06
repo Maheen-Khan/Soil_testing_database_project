@@ -6,12 +6,12 @@ const {createTest, getTest,updateTest,deleteTest,getAllTest} = require("../contr
 router.post("/test/create",createTest)
 //Get Test
 
-router.post("/test/get", getTest)
+router.get("/test/get/:id", getTest)
 
-router.get("/test/get/all",getAllTest)
+router.get("/test/get-all",getAllTest)
 
 //Update Test
-router.patch("/test/update",updateTest)
+router.patch("/test/update/:id",updateTest)
 
 //Delete Test
 router.delete("/test/delete/:id",deleteTest)

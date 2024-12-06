@@ -1,112 +1,138 @@
-import React from "react";
-import { useEffect,useState } from "react";
-import AdminApi from "../services/AdminApi";
-import "./CreateRequest.css"
-const CreateRequest = (() =>{
-    const [Tests, setTests] = useState([])
-    const [checkedTests, setCheckedTests] = useState({})
-    const [email,setEmail] = useState("")
+import React, { useEffect, useState } from "react";
+import UserApi from "../services/UserApi";
+import "./CreateRequest.css";
+
+const CreateRequest = () => {
+    const [tests, setTests] = useState([]);
+    const [checkedTests, setCheckedTests] = useState({});
+    const [email, setEmail] = useState("");
 
     useEffect(() => {
-        const fetchSamples = async () => {
-            try{
-                const response = await AdminApi.getAllTests();
-                //console.log(JSON.stringify(response.data))
-                setTests(response.data);  
-                console.log((await response).data)
-
-
-            }catch(err){
-                console.error(err)
+        const getTests = async () => {
+            try {
+                const response = await UserApi.getAllTests();
+                setTests(response.data);
+            } catch (err) {
+                console.error(err);
+                alert("Failure to recive tests from database")
             }
-
         };
 
-        fetchSamples();
+        getTests();
     }, []);
 
     const handleCheckboxChange = (id) => {
-        setCheckedTests((checkedTest) => ({
-            ...checkedTest,
-            [id]: {
-                checked: !checkedTest[id]?.checked,  //clears previous input value
-            },
-        }));
-    }
-
-    const handleInputChange = (id,value) => {
-        console.log(id)
         setCheckedTests((prevState) => ({
             ...prevState,
             [id]: {
-                ...prevState[id],
-                input: value,  
+                checked: !prevState[id]?.checked,
+                inputs: prevState[id]?.inputs || {},
             },
         }));
-    }
-    const handleEmailChange = (value) =>{
-        setEmail(value)
-    }
-    const handleSubmit = async (e) =>{
-        e.preventDefault()
+    };
 
-        console.log(checkedTests)
+    const handleInputChange = (testId, unitValue, inputValue) => {
+        setCheckedTests((prevState) => ({
+            ...prevState,
+            [testId]: {
+                ...prevState[testId],
+                inputs: {
+                    ...prevState[testId]?.inputs,
+                    [unitValue]: inputValue,
+                },
+            },
+        }));
+    };
+
+    const handleEmailChange = (value) => {
+        setEmail(value);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         const requestData = {
             email,
-            tests: Object.keys(checkedTests)
-                .filter((id) => checkedTests[id]?.checked) 
-                .map((id) => (
-                    {
-                    testId: id,
-                    value: checkedTests[id]?.input || "",  
+            tests: tests
+                .filter((test) => checkedTests[test._id]?.checked)
+                .map((test) => ({
+                    testId: test._id,
+                    values: test.unit.map((unitValue) => {
+                        return checkedTests[test._id]?.inputs[unitValue] || "";
+                    }),
                 })),
         };
-        
-        console.log(requestData)
-        //const res = await AdminApi.createRequest(requestData)
-        //console.log(res)
 
-    }
+        console.log(requestData);
 
+        try {
+            const res = await UserApi.createRequest(requestData);
+            console.log(res);
+            alert("Sucess: Request Created!")
+        } catch (err) {
+            console.error("Error submitting the request:", err);
+            alert("Error: Request not created")
+        }
+    };
 
-
-
-return <div className="create-request-shell">
-
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder={"Enter Email"}
-                onChange={(e) => handleEmailChange(e.target.value)}
-            />
-            {
-                Tests && Tests.map(res =>{
-                    return <div key={res._id} style={{marginBottom:"20px"}}>
-                        <label>
-                        <input
-                            type="checkbox"
-                            onChange={() => handleCheckboxChange(res._id)}
-                            checked={checkedTests[res._id] && checkedTests[res._id].checked}
-                        />
-                        {res.unit} {res.testName}
-
-                        </label>
-
-                        {checkedTests[res._id] && checkedTests[res._id].checked ? (
-                            <input 
-                                type="text" 
-                                placeholder={`Input for ${res.testName}`} 
-                                style={{ marginLeft: "10px" }}
-                                onChange={(e) => handleInputChange(res._id,e.target.value)}
-                            />
-                                ) :
-                                <div></div>}
+    return (
+        <div className="create-request-shell">
+            <form className="create-request-form" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    className="create-request-email"
+                    placeholder="Enter Email"
+                    onChange={(e) => handleEmailChange(e.target.value)}
+                />
+                {tests &&
+                    tests.map((test) => (
+                        <div key={test._id} className="create-request-test-item">
+                            <div className="create-request-checkbox-container">
+                                <input
+                                    type="checkbox"
+                                    className="create-request-checkbox"
+                                    onChange={() => handleCheckboxChange(test._id)}
+                                    checked={checkedTests[test._id]?.checked || false}
+                                />
+                                <span>{test.testName}</span>
                             </div>
-                })
-            }
-            <button type="submit">Confirm</button>
-        </form>
-    </div>
-})
+                            {Array.isArray(test.unit)
+                                ? test.unit.map((unitValue, index) => (
+                                      <div key={index}>
+                                          {checkedTests[test._id]?.checked ? (
+                                              <input
+                                                  type="text"
+                                                  className="create-request-input-field"
+                                                  placeholder={`Input for ${test.testName} (${unitValue})`}
+                                                  onChange={(e) =>
+                                                      handleInputChange(
+                                                          test._id,
+                                                          unitValue,
+                                                          e.target.value
+                                                      )
+                                                  }
+                                              />
+                                          ) : null}
+                                      </div>
+                                  ))
+                                : test.unit && checkedTests[test._id]?.checked ? (
+                                      <input
+                                          type="text"
+                                          className="create-request-input-field"
+                                          placeholder={`Input for ${test.testName}`}
+                                          onChange={(e) =>
+                                              handleInputChange(test._id, test.unit, e.target.value)
+                                          }
+                                      />
+                                  ) : null}
+                        </div>
+                    ))}
+                <button type="submit" className="create-request-submit-button">
+                    Confirm
+                </button>
+            </form>
+        </div>
+    );
+};
 
 export default CreateRequest;

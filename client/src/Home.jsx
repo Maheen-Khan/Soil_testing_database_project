@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div className="button-container">
+      <div className="home-button-container">
         <Link to="/request-sample" className="home-button">
           Request New Soil Test
         </Link>

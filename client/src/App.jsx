@@ -14,11 +14,13 @@ import VerifyUser from './auth/VerifyUser';
 import NavBar from './components/NavBar';
 
 //Admin folder
-import {RequestList, UserList} from './admin/DataLists';
+import {RequestList, UserList, TestList} from './admin/DataLists';
 import UpdateRequest from './admin/UpdateRequest';
 import RequestDashboard from './admin/RequestDashboard';
 import CreateRequest from './admin/CreateRequest';
 import UpdateUser from './admin/UpdateUser';
+import UpdateTest from './admin/UpdateTest';
+import CreateTest from './admin/CreateTest';
 
 //User folder
 
@@ -46,15 +48,19 @@ function App() {
           <Route path='/my-samples' element={<MySamples />} />
           <Route path='/Account' element={<Account />} />
 
+          <Route path="/request-list"   element={<RequestList />} />
+          <Route path="/user-list"   element={<UserList />} />
+          <Route path="/test-list"   element={<TestList />} />
+
 
           <Route path='/update-request' element={<UpdateRequest />} />
-          <Route path="/request-list"   element={<RequestList />} />
           <Route path="/request-dashboard"   element={<RequestDashboard />} />
           <Route path="/create-request"   element={<CreateRequest />} />
           <Route path="/create-user"   element={<Register />} />
-          <Route path="/user-list"   element={<UserList />} />
           <Route path="/update-user"   element={<UpdateUser />} />
-          
+          <Route path="/update-test"   element={<UpdateTest />} />
+          <Route path="/create-test"   element={<CreateTest />} />
+
           
 
 

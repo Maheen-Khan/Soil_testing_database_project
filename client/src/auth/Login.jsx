@@ -8,7 +8,8 @@ const Login = (() => {
 
     const [name,setName] = useState('');
     const [password,setPassword] = useState('');
-   const {user,dispatch} = useAuthContext()
+    const [rememberMe,setRememberMe] = useState(false)
+    const {user,dispatch} = useAuthContext()
     const nav = useNavigate();
     
     if(user?.role === 'admin'){
@@ -72,7 +73,10 @@ const Login = (() => {
                         className="login-input"
                         />
                     </label>
-
+                    <div id="rememberMe">
+                        <input type="checkbox" value={rememberMe} name="RememberMe" onChange={() => setRememberMe(!rememberMe)}/>
+                        <label htmlFor="RememberMe">Remember Me</label>
+                    </div>
                     <Link to= "../register" className='login-link' >Don't have an account?</Link>
                     <button type="submit" className="login-submit">Submit</button>
                 </form>

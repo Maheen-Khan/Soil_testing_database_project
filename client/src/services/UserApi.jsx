@@ -2,6 +2,7 @@ import api from "./api";
 
 const getAllRequests = (async () => {
     const res = await api.post("/request/get/all");
+    console.log("Request retrived")
     return(res);
 })
 
@@ -11,7 +12,7 @@ const getRequest = (async (userId) =>{
     const requestData = res.data.tests.map((test) => ({
         id: test.testId._id,
         name: test.testId.testName,
-        value: test.value,
+        values: test.values,
         unit: test.testId.unit,
       }));
     console.log("Sucess! data updated")
@@ -43,6 +44,28 @@ const updateUser = (async (user) =>{
 
 })
 
+const getAllTests = (async () =>{
+    const res = await api.get("/test/get-all")
+    console.log("Test retrived")
+    return(res)
+})
+const getTest = (async (testId) =>{
+    const res = await api.get(`/test/get/${testId}`)
+    console.log("Test retrived")
+    return(res)
+})
+
+const updateTest = (async (testId,test) =>{
+    const res = await api.patch(`/test/update/${testId}`,test)
+    console.log("Test updated")
+})
+
+const createRequest = async (request) => {
+    const res = api.post("/request/create",request)
+    return(res)
+}
+
+
 export default {
     getAllUsers,
     getRequest,
@@ -50,6 +73,10 @@ export default {
     deleteUser,
     getAllRequests,
     getUser,
-    updateUser
+    updateUser,
+    getAllTests,
+    getTest,
+    updateTest,
+    createRequest
 
 }

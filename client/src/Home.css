@@ -1,23 +1,22 @@
-.admin-home {
+.home {
     text-align: center;
     margin-top: 50px;
 }
 
-.admin-home-button-shell{
+.home-button-shell{
     display: flex;
     gap: 50px;
     justify-content: center;
 }
 
-.admin-home-button-container {
+.home-button-container {
     display: flex;
     justify-content: center;
     gap: 50px;
     margin-bottom: 50px;
-    flex-direction: column;
 }
 
-.admin-home-button {
+.home-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +30,7 @@
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.admin-home-button:hover {
+.home-button:hover {
     background-color: #f0e5d8;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

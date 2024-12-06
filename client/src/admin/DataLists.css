@@ -1,143 +1,32 @@
-/* RequestList.css */
-
-/* Overall container */
-
-
-
-
-
-.data-list-div{
+.data-list-div {
     display: flex;
-
+    margin: 10px 0;
+    padding: 10px;
 }
-.data-list-div > div{
+
+.data-list-div > div {
     display: flex;
     align-items: center;
     width: 25%;
     justify-content: center;
-    background-color:#a8b798;
-    border: 1px solid black;
+    background-color: #a8b798;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 22px;
 }
-.data-list-link{
-    background-color: lightgrey;
+
+.data-list-link {
+    background-color: #f0f0f0;
     width: 75%;
-    padding: 20px;
+    padding: 15px;
     justify-content: center;
-    border: black solid;
+    border: 1px solid #ddd;
     display: flex;
     text-decoration: none;
-
-
+    font-size: 16px;
 }
 
-.data-list-link:hover{
-    background-color: rgb(107, 105, 105);
+.data-list-link:hover {
+    background-color: #999;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-
-
-/* 
-
-.world{
-    list-style: none;
-    border: 20px black bold;
-    border-style: solid;
-}
-.world:hover{
-    background-color: lightblue;
-
-} */
-
-
-
-
-/*
-
-
-input[type=text].userSample-textbox{
-    width: 25%;
-
-}
-
-
-input[type=text] ,input[type=password]{
-    width: 100%;
-    height: 25px;
-}
-
-
-
-.reg-label{
-    display: block;
-    margin: 30px 0;
-}
-
-
-a.world {
-    width: 85%;
-    display: block;
-    padding: 20px;
-    border: black;
-    border-style: solid;
-    text-align: center;
-    text-decoration: none;
-    font-size: 20px;
-}
-a.world:hover{
-    background-color: lightblue;
-}
-
-
-
-}
-
-.userSample-label{
-    display: block;
-    font-size: 20px;
-    margin: 20px 0;
-} */
-
-
-/*
-
-body{
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-
-}
-
-.form-shell{
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vh;
-    height: 100vh;
-}
-
-.form{
-
-    background-color: grey;
-    padding: 3rem;
-    border-radius: 0.25rem;
-    width:80%;
-}
-label{
-    display: block;
-    font-size: 30px;
-    margin-top: 2em;
-}
-input{
-    display: block;
-    padding: 8px;
-    margin-top: 20px;
-    width: 100%;
-}
-
-button{
-    margin-top: 5em;
-    font-size: 30px;
-    width:100%;
-}
-*/ 

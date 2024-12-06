@@ -18,7 +18,7 @@ const createTest = async(req,res)=>{
 
 const getTest = async(req,res) => {
     try{
-        const test = await Request.findById(req.body.testId);
+        const test = await Test.findById(req.params.id);
         res.status(200).json(test);
     }catch{
         res.status(400).json({error: "Could not retrive test"})
@@ -37,11 +37,13 @@ const getAllTest = async(req,res) => {
 
 const updateTest = async(req,res)=>{
     try{
-        const replacedTest = await Test.findByIdAndUpdate(req.params.id);
+        console.log("Test1",req.body)
+        const replacedTest = await Test.findByIdAndUpdate(req.params.id,req.body);
+        console.log("Test2",replacedTest)
         if(!replacedTest){
             return res.status(400).json({ error: "Test not found" });
         }
-        res.status(200).json(deletedTest);
+        res.status(200).json(replacedTest);
     }catch{
         res.status(400).json("Account does not exist");
     }

@@ -7,7 +7,6 @@ const createRequest = async(req,res) =>{
     const myTest = await Promise.all(req.body.tests.map(async (test) =>{
 
         let testDoc 
-        console.log(testDoc)
         if(test.testId){
             testDoc = await Test.findById(test.testId).lean().exec()
         }else{
@@ -21,11 +20,10 @@ const createRequest = async(req,res) =>{
             }))
         }
 
-        const value = test.value || 0 //allows for admin/user use
-
+        const values = test.values || [] //allows for admin/user use
         return({
             testId : testDoc._id,
-            value : value
+            values : values || []
         })
     }))
     try{
@@ -48,12 +46,10 @@ const createRequest = async(req,res) =>{
 
 
 
-
-        const request = new Request({
+        const request = await Request.create({
             userId : req.body.userID || userId,
             tests: myTest
         })
-        await request.save()
         res.status(200).json({sucess : "Sucess",request})
     }catch{
         res.status(400).json({error : "Error request not created"})
@@ -107,7 +103,7 @@ const updateRequest =  async (req, res) => {
         if (!request) {
             return res.status(404).json({ message: "Request not found" });
         }
-
+        
         await Request.findByIdAndUpdate(req.params.id,{tests:req.body.tests});
 
 

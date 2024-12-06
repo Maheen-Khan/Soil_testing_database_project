@@ -13,8 +13,7 @@ app.use(express.json()) // this allows JSON parsing from requests
 app.use(cors())
 
 
-mongoose.connect(process.env.MONGODB_URL)
-console.log("Connected")
+mongoose.connect(process.env.MONGODB_URL).then(()=>console.log("Connected"))
 
 
 app.use(userRoutes)
@@ -27,10 +26,19 @@ app.listen(3001, () => {
 
 
 const Test = require("./model/Test"); // Replace with your model
+const Request = require("./model/Request")
 
+// Request.deleteMany({}).then((e)=> console.log(e))
 
+// const test = Test.create({
+//     testName: "NPK Kit",
+//     unit : ["N","P","K"],
+//     cost : 10
+// })
+// console.log(test)
 
-
+//const request = Request.deleteMany({}).then((req) => console.log("Request Deleted!" , req)) 
+//const tests = Test.find({}).select("testName").then((t) => console.log(t))
 
 // //Dev function for accidentally making duplicates
 // async function deleteDuplicates() {
