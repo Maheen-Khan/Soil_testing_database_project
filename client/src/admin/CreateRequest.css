@@ -1,0 +1,87 @@
+.create-request-shell {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 40px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #a8b798;
+    font-family: Arial, sans-serif;
+}
+
+.create-request-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.create-request-email {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    background: #f4f4f4;
+}
+
+.create-request-email:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 2px #007bff;
+    outline: none;
+    background: #ffffff;
+}
+
+.create-request-test-item {
+    margin-bottom: 12px;
+    background: #c7d3c0;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+}
+
+.create-request-checkbox-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    gap: 6px;
+    background: #e3e9df;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.create-request-checkbox {
+    margin-right: 6px;
+}
+
+.create-request-input-field {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 90%;
+    margin-top: 16px;
+    background: #f4f4f4;
+}
+
+.create-request-input-field:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 2px #28a745;
+    outline: none;
+    background: #ffffff;
+}
+
+.create-request-submit-button {
+    padding: 12px;
+    background-color: #124a85;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.create-request-submit-button:hover {
+    background-color: #0056b3;
+}

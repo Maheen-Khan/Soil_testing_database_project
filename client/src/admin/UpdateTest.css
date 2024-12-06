@@ -1,0 +1,103 @@
+.update-test-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.update-test-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.update-test-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.update-test-label {
+    font-size: 16px;
+}
+
+.update-test-input {
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.update-test-units {
+    margin-top: 20px;
+}
+
+.update-test-units-label {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.update-test-unit {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.update-test-unit-input {
+    padding: 8px;
+    font-size: 14px;
+    margin-right: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.update-test-remove-unit {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.update-test-remove-unit:hover {
+    background-color: #c0392b;
+}
+
+.update-test-add-unit {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.update-test-add-unit:hover {
+    background-color: #2980b9;
+}
+
+.update-test-button {
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.update-test-button:hover {
+    background-color: #27ae60;
+}
+
+.update-test-no-data {
+    text-align: center;
+    font-size: 18px;
+    color: #7f8c8d;
+}

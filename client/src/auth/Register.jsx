@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import "./Register.css"
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import LoginApi from "../services/LoginApi";
+import { useAuthContext } from "../AuthContext";
 function Register(){
 
     const [name,setName] = useState('');
@@ -10,7 +11,8 @@ function Register(){
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfirmPassword] = useState('');
     const [homeAddress,setHomeaddress] = useState('');
-
+    const user = useAuthContext()
+    const nav = useNavigate()
 
 
     const handleSubmit = async (e) =>{
@@ -23,13 +25,21 @@ function Register(){
                     password,
                     homeAddress
                 }
-                await LoginApi.register()
+                await LoginApi.register(userData)
             }else{
                 console.log("incorrect password")
             }
+
+
+            console.log("Sucess : User created")
+            if(user && user.role === "admin"){
+                nav("/request-dashboard")
+            }
+            nav("/login")
         }catch(err){
             console.error(err);
         }
+
 
 
         //After confirmation info gets sent to the backend
@@ -39,7 +49,7 @@ function Register(){
 
         <div className="reg-shell">
             <div className="reg-form">
-            <h1>Register</h1>
+            <h1 className="reg-title">Register</h1>
                 <form onSubmit={handleSubmit}>
                     <label className="reg-label">
                         <strong>Name</strong>
@@ -81,7 +91,7 @@ function Register(){
                         value={homeAddress}
                         onChange={(e)=> setHomeaddress(e.target.value)}/>
                     </label>
-                    <Link to= "../login" >Already Have an account?</Link>
+                    <Link to= "../login" className="reg-link" >Already Have an account?</Link>
 
 
                     <button type="submit" className="reg-button">Submit</button>

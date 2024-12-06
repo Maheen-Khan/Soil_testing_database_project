@@ -1,28 +1,56 @@
 const Test = require("../model/Test.js")
+const User = require("../model/User")
 const Request = require("../model/Request.js")
 //Create a Request
 const createRequest = async(req,res) =>{
 
-    const myTest = await Promise.all(req.body.tests.map(async (value,index) =>{
-        const testDoc = await Test.findOne({testName: value})
-        if(!testDoc){
-            return({
-                error: "Test not found"
-            })
+    const myTest = await Promise.all(req.body.tests.map(async (test) =>{
+
+        let testDoc 
+        if(test.testId){
+            testDoc = await Test.findById(test.testId).lean().exec()
+        }else{
+            testDoc = await Test.findOne({testName: test.testName}).lean().exec()
+
         }
+        if(!testDoc){
+            return(
+                res.status(400).json({
+                error: "Test not found"
+            }))
+        }
+
+        const values = test.values || [] //allows for admin/user use
         return({
             testId : testDoc._id,
-            value : 0
+            values : values || []
         })
     }))
     try{
-        const request = new Request({
-            userId : req.body.userId,
-            tests: myTest,
-            description : req.body.description,
+
+        const {email} = req.body
+        let userId
+        if(email){
+            userId = await User.findOne({email : email}).select("_id")
+
+            if(!userId){
+                res.status(400).json({message : "User not found"})
+            }
+        }else{
+            userId = req.body.userID
+        }
+
+        if(!userId){
+            res.status(400).json({message : "All parameters required"})
+        }
+
+
+
+        const request = await Request.create({
+            userId : req.body.userID || userId,
+            tests: myTest
         })
-        await request.save()
-        res.status(200).json({sucess : "Sucess"})
+        res.status(200).json({sucess : "Sucess",request})
     }catch{
         res.status(400).json({error : "Error request not created"})
     }
@@ -75,7 +103,7 @@ const updateRequest =  async (req, res) => {
         if (!request) {
             return res.status(404).json({ message: "Request not found" });
         }
-
+        
         await Request.findByIdAndUpdate(req.params.id,{tests:req.body.tests});
 
 

@@ -1,36 +1,39 @@
-.home {
+.admin-home {
     text-align: center;
     margin-top: 50px;
 }
 
-.home-button-shell{
+.admin-home-button-shell {
     display: flex;
-    gap: 50px;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
 
-.home-button-container {
+.admin-home-button-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
-.home-button {
+.admin-home-button {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 200px;
-    height: 300px;
-    background-color:#a8b798;
+    height: 100px;
+    background-color: #a8b798;
     border-radius: 20px;
     text-decoration: none;
     color: black;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.home-button:hover {
+.admin-home-button:hover {
     background-color: #f0e5d8;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -38,4 +41,5 @@
 .footer {
     font-size: 18px;
     color: #4a4a4a;
+    margin-top: 50px;
 }

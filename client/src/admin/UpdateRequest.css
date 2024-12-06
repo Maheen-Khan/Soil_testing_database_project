@@ -1,0 +1,101 @@
+/* Container to center everything and add padding */
+.request-update-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Shell for the form with padding, background, and border-radius */
+.request-update-shell {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Trash button in the top right corner */
+.trash {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+    width: 15%;
+    float: right;
+}
+
+.trash:hover {
+    background-color: #c0392b;
+}
+
+/* Styling for the input fields and labels */
+.request-update-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+/* Label styling for the test inputs */
+.request-update-label {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+/* Input field styling */
+.request-update-label input {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 60%;
+    margin-left: 10px;
+}
+
+/* Placeholder style for input */
+.request-update-label input::placeholder {
+    color: #aaa;
+}
+
+/* For the unit text next to each input */
+.request-update-label div:last-child {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Styling for the update and confirm buttons */
+.request-update-button {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+/* Buttons styling */
+.request-update-button button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.request-update-button button:hover {
+    background-color: #2980b9;
+}
+
+.request-update-button button:nth-child(2) {
+    background-color: #2b8e54;
+}
+
+.request-update-button button:nth-child(2):hover {
+    background-color: #2b8e54;
+}
